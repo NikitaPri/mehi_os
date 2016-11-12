@@ -35,3 +35,4 @@ do
 		*) echo неверный выбор;;
 	esac
 done
+echo biba
