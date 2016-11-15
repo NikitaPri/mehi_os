@@ -1,38 +1,43 @@
 #!/bin/bash
 
-breakmenushow () {
+menushow () {
 	i=1
 	if [ "$1" == "Управление пользователями" ]
 	then
+		echo
 		echo Главное меню:
 	fi
 	if [ "$1" == "Удалить пользователя" ]
         then
-                echo Меню управления пользователями:
+			echo
+            echo Меню управления пользователями:
         fi
 	if [ "$1" == "Добавить группу" ]
         then
-                echo Меню управления группами:
+			echo
+            echo Меню управления группами:
         fi
 	if [ "$1" == "Найти пользователя" ]
         then
-                echo Меню поиска:
+			echo
+            echo Меню поиска:
         fi
 	if [ "$1" == "Добавить пользователя в группу" ]
         then
-                echo Меню изменения состава группы:
+			echo    
+			echo Меню изменения состава группы:
         fi
 	for arg in "$@"; do
 		echo "$i) $arg"
 		((i++))
 	done
 }
-PS3='Your choice: '
-options=("Управление пользователями" "Управление группами" "Поиск пользователей или групп" "Справка" "Выход")
-optionsuser=("Удалить пользователя" "Блокировка пользователя" "Добавить пользователя" "Добавить пользователя в группу" "Смена пароля пользователя" "Справка" "Выход")
-optionsgroup=("Добавить группу" "Удалить группу" "Изменить состав группы" "Справка" "Выход")
-optionsgroupsostav=("Добавить пользователя в группу" "Удалить пользователя из группы" "Справка" "Выход")
-optionssearch=("Найти пользователя" "Найти группу" "Справка" "Выход")
+PS3='Ваш выбор: '
+options=("Управление пользователями" "Управление группами" "Поиск пользователей или групп" "Справка" "Выход из программы")
+optionsuser=("Удалить пользователя" "Блокировка пользователя" "Добавить пользователя" "Добавить пользователя в группу" "Смена пароля пользователя" "Справка" "Выход в главное меню" "Выход из программы")
+optionsgroup=("Добавить группу" "Удалить группу" "Изменить состав группы" "Справка" "Выход в главное меню" "Выход из программы")
+optionsgroupsostav=("Добавить пользователя в группу" "Удалить пользователя из группы" "Справка" "Выход в предыдущее меню" "Выход в главное меню" "Выход из программы")
+optionssearch=("Найти пользователя" "Найти группу" "Справка" "Выход в главное меню" "Выход из программы")
 
 main () {
 	if [ "$1" == "--help" ]
@@ -52,118 +57,137 @@ main () {
 	do
 		case $opt in
 			"Управление пользователями")
+				echo
 				echo Меню управления пользователями
 				select optuser in "${optionsuser[@]}"
 				do
 					case $optuser in
 						"Удалить пользователя")
 							./delete_user.sh
-							breakmenushow "${optionsuser[@]}"
+							menushow "${optionsuser[@]}"
 							;;
 						"Блокировка пользователя")
 							./block_user.sh
-							breakmenushow "${optionsuser[@]}"
-							break;
+							menushow "${optionsuser[@]}"
 							;;
 						"Добавить пользователя")
 							./add_user.sh
-							breakmenushow "${optionsuser[@]}"
+							menushow "${optionsuser[@]}"
 							;;
 						"Добавить пользователя в группу")
 							./add_user_group.sh
-							breakmenushow "${optionsuser[@]}"
+							menushow "${optionsuser[@]}"
 							;;
 						"Смена пароля пользователя")
 							./change_passwd.sh
-							breakmenushow "${optionsuser[@]}"
+							menushow "${optionsuser[@]}"
 							;;
 						"Справка")
-							breakmenushow "${optionsuser[@]}"
+							menushow "${optionsuser[@]}"
 							;;
-						"Выход")
-							breakmenushow "${options[@]}"
+						"Выход в главное меню")
+							menushow "${options[@]}"
 							break
 							;;
-						*) echo неверный выбор;;
+						"Выход из программы")
+                            return 0
+                            ;;
+						*) echo неверный выбор >&2;;
 					esac
 				done
 				;;
 			"Управление группами")
+				echo
 				echo Меню управления группами:
 				select optgroup in "${optionsgroup[@]}"
 				do
 					case $optgroup in
 						"Добавить группу")
-							breakmenushow "${optionsgroup[@]}"
+							menushow "${optionsgroup[@]}"
 							;;
 						"Удалить группу")
-							breakmenushow "${optionsgroup[@]}"
+							menushow "${optionsgroup[@]}"
 							;;
 						"Изменить состав группы")
+							echo
 							echo Меню изменения состава группы:
 							select optgroupsostav in "${optionsgroupsostav[@]}"
 							do
 								case $optgroupsostav in
 									"Добавить пользователя в группу")
 										./add_user_group.sh
-										breakmenushow "${optionsgroupsostav[@]}"
+										menushow "${optionsgroupsostav[@]}"
 										;;
 									"Удалить пользователя из группы")
-										breakmenushow "${optionsgroupsostav[@]}"
+										menushow "${optionsgroupsostav[@]}"
 										;;
 									"Справка")
-										breakmenushow "${optionsgroupsostav[@]}" 
+										menushow "${optionsgroupsostav[@]}" 
 										;;
-									"Выход")
-										breakmenushow "${optionsgroup[@]}"
+									"Выход в предыдущее меню")
+										menushow "${optionsgroup[@]}"
 										break
 										;;
-									*) echo неверный выбор;;
+									"Выход в главное меню")
+										menushow "${options[@]}"
+										break 2
+										;;
+									"Выход из программы")
+										return 0
+										;;
+									*) echo неверный выбор >&2;;
 								esac
 							done
 							;;
 						"Справка")
-							breakmenushow "${optionsgroup[@]}"
+							menushow "${optionsgroup[@]}"
 							;;
-						"Выход")
-							breakmenushow "${options[@]}"
+						"Выход в главное меню")
+							menushow "${options[@]}"
 							break
 							;;
-						*) echo неверный выбор;;
+						"Выход из программы")
+                            return 0
+							;;
+						*) echo неверный выбор >&2;;
 					esac
 				done
 				;;
 			"Поиск пользователей или групп")
+				echo
 				echo Меню поиска:
 				select optsearch in "${optionssearch[@]}"
 				do
 					case $optsearch in
 						"Найти пользователя")
 							./find_user.sh
-							breakmenushow "${optionssearch[@]}"
+							menushow "${optionssearch[@]}"
 							;;
 						"Найти группу")
-							breakmenushow "${optionssearch[@]}"
+							menushow "${optionssearch[@]}"
 							;;
 						"Справка")
-							breakmenushow "${optionssearch[@]}"
+							menushow "${optionssearch[@]}"
 							;;
-						"Выход")
-							breakmenushow "${options[@]}"
+						"Выход в главное меню")
+							menushow "${options[@]}"
 							break
 							;;
-						*) echo неверный выбор;;
+						"Выход из программы")
+                            return 0
+                            ;;
+						*) echo неверный выбор >&2;;
 					esac
 				done
 				;;
 			"Справка")
-				breakmenushow "${options[@]}"
+				menushow "${options[@]}"
 				echo "Справка"
 				;;
-			"Выход")
-				break
+			"Выход из программы")
+				return 0
 				;;
-			*) echo неверный выбор;;
+			*) echo неверный выбор >&2;;
 		esac
 	done
 	fi
