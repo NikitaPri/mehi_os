@@ -38,10 +38,12 @@ main () {
 				do
 					case $optuser in
 						"Удалить пользователя")
-							delete_user
-							break
+							./delete_user.sh
+							break;	
 							;;
 						"Блокировка пользователя")
+							./block_user.sh
+							break;
 							;;
 						"Добавить пользователя")
 							;;
