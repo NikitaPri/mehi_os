@@ -66,6 +66,7 @@ main () {
 							break;
 							;;
 						"Добавить пользователя")
+							./add_user.sh
 							breakmenushow "${optionsuser[@]}"
 							;;
 						"Добавить пользователя в группу")
