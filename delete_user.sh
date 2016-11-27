@@ -29,14 +29,14 @@ while true;
 			echo
 			echo Ошибка! Пользователь не найден >&2
 		else
-			read -p "Вы уверены, что хотите удалить пользователя $user ? (y,n): " -n 1 -r
+			read -p "Вы уверены, что хотите удалить пользователя $user ? (Y): " -n 1 -r
 			echo      
 			if [[ ! $REPLY =~ ^[Yy]$ ]]
 			then
 				exit 1
 			fi
 			userdel $user
-			read -p "Удалить домашний каталог пользователя $user ? (y,n): " -n 1 -r
+			read -p "Удалить домашний каталог пользователя $user ? (Y): " -n 1 -r
 			echo    
 			if [[ ! $REPLY =~ ^[Yy]$ ]]
 			then
