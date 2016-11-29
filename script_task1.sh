@@ -136,6 +136,7 @@ main () {
 				do
 					case $optsearch in
 						"Найти пользователя")
+							./find_user.sh
 							breakmenushow "${optionssearch[@]}"
 							;;
 						"Найти группу")
