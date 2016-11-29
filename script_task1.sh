@@ -70,6 +70,7 @@ main () {
 							breakmenushow "${optionsuser[@]}"
 							;;
 						"Добавить пользователя в группу")
+							./add_user_group.sh
 							breakmenushow "${optionsuser[@]}"
 							;;
 						"Смена пароля пользователя")
