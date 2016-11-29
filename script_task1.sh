@@ -70,9 +70,11 @@ main () {
 							breakmenushow "${optionsuser[@]}"
 							;;
 						"Добавить пользователя в группу")
+							./add_user_group.sh
 							breakmenushow "${optionsuser[@]}"
 							;;
 						"Смена пароля пользователя")
+							./change_passwd.sh
 							breakmenushow "${optionsuser[@]}"
 							;;
 						"Справка")
@@ -103,6 +105,7 @@ main () {
 							do
 								case $optgroupsostav in
 									"Добавить пользователя в группу")
+										./add_user_group.sh
 										breakmenushow "${optionsgroupsostav[@]}"
 										;;
 									"Удалить пользователя из группы")
