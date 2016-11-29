@@ -1,6 +1,6 @@
 #!/bin/bash
 
-breakmenushow () {
+menushow () {
 	i=1
 	if [ "$1" == "Управление пользователями" ]
 	then
@@ -31,7 +31,7 @@ PS3='Your choice: '
 options=("Управление пользователями" "Управление группами" "Поиск пользователей или групп" "Справка" "Выход")
 optionsuser=("Удалить пользователя" "Блокировка пользователя" "Добавить пользователя" "Добавить пользователя в группу" "Смена пароля пользователя" "Справка" "Выход")
 optionsgroup=("Добавить группу" "Удалить группу" "Изменить состав группы" "Справка" "Выход")
-optionsgroupsostav=("Добавить пользователя в группу" "Удалить пользователя из группы" "Справка" "Выход")
+optionsgroupsostav=("Добавить пользователя в группу" "Удалить пользователя из группы" "Справка" "Выход в предыдущее меню" "Выход в главное меню")
 optionssearch=("Найти пользователя" "Найти группу" "Справка" "Выход")
 
 main () {
@@ -58,30 +58,29 @@ main () {
 					case $optuser in
 						"Удалить пользователя")
 							./delete_user.sh
-							breakmenushow "${optionsuser[@]}"
+							menushow "${optionsuser[@]}"
 							;;
 						"Блокировка пользователя")
 							./block_user.sh
-							breakmenushow "${optionsuser[@]}"
-							break;
+							menushow "${optionsuser[@]}"
 							;;
 						"Добавить пользователя")
 							./add_user.sh
-							breakmenushow "${optionsuser[@]}"
+							menushow "${optionsuser[@]}"
 							;;
 						"Добавить пользователя в группу")
 							./add_user_group.sh
-							breakmenushow "${optionsuser[@]}"
+							menushow "${optionsuser[@]}"
 							;;
 						"Смена пароля пользователя")
 							./change_passwd.sh
-							breakmenushow "${optionsuser[@]}"
+							menushow "${optionsuser[@]}"
 							;;
 						"Справка")
-							breakmenushow "${optionsuser[@]}"
+							menushow "${optionsuser[@]}"
 							;;
 						"Выход")
-							breakmenushow "${options[@]}"
+							menushow "${options[@]}"
 							break
 							;;
 						*) echo неверный выбор;;
@@ -94,10 +93,10 @@ main () {
 				do
 					case $optgroup in
 						"Добавить группу")
-							breakmenushow "${optionsgroup[@]}"
+							menushow "${optionsgroup[@]}"
 							;;
 						"Удалить группу")
-							breakmenushow "${optionsgroup[@]}"
+							menushow "${optionsgroup[@]}"
 							;;
 						"Изменить состав группы")
 							echo Меню изменения состава группы:
@@ -106,27 +105,31 @@ main () {
 								case $optgroupsostav in
 									"Добавить пользователя в группу")
 										./add_user_group.sh
-										breakmenushow "${optionsgroupsostav[@]}"
+										menushow "${optionsgroupsostav[@]}"
 										;;
 									"Удалить пользователя из группы")
-										breakmenushow "${optionsgroupsostav[@]}"
+										menushow "${optionsgroupsostav[@]}"
 										;;
 									"Справка")
-										breakmenushow "${optionsgroupsostav[@]}" 
+										menushow "${optionsgroupsostav[@]}" 
 										;;
-									"Выход")
-										breakmenushow "${optionsgroup[@]}"
+									"Выход в предыдущее меню")
+										menushow "${optionsgroup[@]}"
 										break
+										;;
+									"Выход в главное меню")
+										menushow "${options[@]}"
+										break 2
 										;;
 									*) echo неверный выбор;;
 								esac
 							done
 							;;
 						"Справка")
-							breakmenushow "${optionsgroup[@]}"
+							menushow "${optionsgroup[@]}"
 							;;
 						"Выход")
-							breakmenushow "${options[@]}"
+							menushow "${options[@]}"
 							break
 							;;
 						*) echo неверный выбор;;
@@ -140,16 +143,16 @@ main () {
 					case $optsearch in
 						"Найти пользователя")
 							./find_user.sh
-							breakmenushow "${optionssearch[@]}"
+							menushow "${optionssearch[@]}"
 							;;
 						"Найти группу")
-							breakmenushow "${optionssearch[@]}"
+							menushow "${optionssearch[@]}"
 							;;
 						"Справка")
-							breakmenushow "${optionssearch[@]}"
+							menushow "${optionssearch[@]}"
 							;;
 						"Выход")
-							breakmenushow "${options[@]}"
+							menushow "${options[@]}"
 							break
 							;;
 						*) echo неверный выбор;;
@@ -157,7 +160,7 @@ main () {
 				done
 				;;
 			"Справка")
-				breakmenushow "${options[@]}"
+				menushow "${options[@]}"
 				echo "Справка"
 				;;
 			"Выход")
