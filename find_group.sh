@@ -9,7 +9,7 @@ find_group()
 
 	is_group=$(cat /etc/group | cut -d : -f1 | awk '($1=="'$group'"){print "true"}')
 
-	if[[ $is_group == "true" ]]
+	if [[ $is_group == "true" ]]
     then
 
 		echo "Группа найдена"
@@ -20,7 +20,7 @@ find_group()
 
 
 
-    if[[ $is_group!= "true" ]]
+    if [[ $is_group != "true" ]]
 	then
 
 		echo "Группа $group не найдена"
