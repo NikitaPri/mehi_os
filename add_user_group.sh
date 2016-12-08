@@ -28,11 +28,16 @@ do
 		read choice_g key_g
 		if [[ "$key_g" == "-g" ]]
 		then 
-			group=choice_g
+			group=$(cat /etc/group | awk -F : '{print $1}' | awk '($1=="'$choice_g'"){print $1}')
 		else
 			group=$(cat /etc/group | awk -F : '{print $1}' |cat -n | awk '($1=="'$choice_g'"){print $2}')
 		fi
-		usermod -aG $group $user
+		if [ "$group" == "" ]
+		then
+			echo Ошибка! Группа не найдена >&2
+		else
+			usermod -aG $group $user
+		fi
 	fi
 	read -p "Повторить? (Y): " -n 1 -r
         	echo    
