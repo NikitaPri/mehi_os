@@ -45,6 +45,22 @@ while true;
 			fi
 			rm -rf /home/$user/
 		fi
+
+		while true;
+		do
+			read -p "Повторить?(y/n): " answer
+			if [[ "$answer" == "y" || "$answer" == "n" ]]
+			then
+				break
+			fi
+		done
+		if [ "$answer" == "y" ]
+		then
+			echo
+		else
+			break
+		fi
+
 	done 
 }
 delete_user
