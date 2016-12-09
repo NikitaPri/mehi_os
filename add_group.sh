@@ -26,12 +26,19 @@ add_group()
 	then
 
 		echo "Группа с таким названием уже существует"
-		add_group
-
+        
+                	 
 	fi
 	
 	
+        echo "Для добавления группы введите y (иначе произойдет выход)"
+        read noexit
 
+        if [[ $noexit == "y" ]]
+        then
+
+		add_group
+	fi
 
 
 }
