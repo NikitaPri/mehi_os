@@ -45,20 +45,12 @@ while true;
 			rm -rf /home/$user/
 		fi
 
-		while true;
-		do
-			read -p "Повторить?(y/n): " answer
-			if [[ "$answer" == "y" || "$answer" == "n" ]]
-			then
-				break
-			fi
-		done
-		if [ "$answer" == "y" ]
-		then
-			echo
-		else
-			break
-		fi
+		read -p "Повторить? (Y): " -n 1 -r
+                        echo    
+                        if [[ ! $REPLY =~ ^[Yy]$ ]]
+                        then
+                                break
+                        fi
 
 	done 
 }
