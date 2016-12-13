@@ -1,4 +1,3 @@
-#!/bin/bash
 delete_user () {
 while true;
 	do
