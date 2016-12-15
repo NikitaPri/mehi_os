@@ -41,9 +41,20 @@ delete_group()
         if [[ $is_group == "true" ]]
         then
 
-	        groupdel $group
+                is_group1=$(cat /etc/group | awk -F: '(($1=="'$group'")&&($3>1000)&&($1!="nfsnobody")){print "true"}')
+	        
+                if [[ $is_group1 == "true" ]]
+                then
+
+                         groupdel $group
     
-	        echo "Группа удалена успешно"
+	                 echo "Группа удалена успешно"
+                fi
+
+                if [[ $is_group1 != "true" ]]
+                then
+	                 echo "Невозможно удалить первичную группу пользователя $group"
+                fi
 
         fi
 
