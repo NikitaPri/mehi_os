@@ -68,14 +68,17 @@ delete_group()
 	fi
 	
 	
-        echo "Повторить? y"
-        read repeat
 
-        if [[ $repeat =~ ^[Yy]$ ]]
+        read -p "Повторить? (y): " -n 1 -r
+
+        echo
+    
+        if [[ $REPLY =~ ^[Yy]$ ]]
         then
 
-		delete_group
-	fi
+                delete_group
+
+        fi
 
 
 }
