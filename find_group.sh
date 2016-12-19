@@ -63,14 +63,17 @@ find_group()
 
 	fi	
 
-        echo "Повторить? y"
-        read repeat
 
-        if [[ $repeat =~ ^[Yy]$ ]]
+        read -p "Повторить? (y): " -n 1 -r
+
+        echo
+    
+        if [[ $REPLY =~ ^[Yy]$ ]]
         then
 
-		find_group
-	fi
+                find_group
+
+        fi
     
 
 }
