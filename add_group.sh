@@ -58,14 +58,16 @@ add_group()
 	fi
 	
 	
-        echo "Повторить? y"
-        read repeat
+        read -p "Повторить? (y): " -n 1 -r
 
-        if [[ $repeat =~ ^[Yy]$ ]]
+        echo
+    
+        if [[ $REPLY =~ ^[Yy]$ ]]
         then
 
-		add_group
-	fi
+                add_group
+
+        fi
 
 
 }
