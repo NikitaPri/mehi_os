@@ -103,9 +103,11 @@ main () {
 				do
 					case $optgroup in
 						"Добавить группу")
+                                                        ./add_group.sh
 							menushow "${optionsgroup[@]}"
 							;;
 						"Удалить группу")
+                                                        ./delete_group.sh
 							menushow "${optionsgroup[@]}"
 							;;
 						"Изменить состав группы")
@@ -165,6 +167,7 @@ main () {
 							menushow "${optionssearch[@]}"
 							;;
 						"Найти группу")
+                                                        ./find_group.sh
 							menushow "${optionssearch[@]}"
 							;;
 						"Справка")
