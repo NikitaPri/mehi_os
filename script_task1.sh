@@ -119,6 +119,7 @@ main () {
 										menushow "${optionsgroupsostav[@]}"
 										;;
 									"Удалить пользователя из группы")
+										./delete_user_group.sh
 										menushow "${optionsgroupsostav[@]}"
 										;;
 									"Справка")
