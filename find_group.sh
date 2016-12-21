@@ -48,7 +48,7 @@ find_group()
 
 		echo "Группа найдена"
 
-                echo "$(cat /etc/group | grep -E ^$group | cut -d: -f1,3,5 | tr ":" " " |  awk '{print "1)имя: "$1" 2)gid: "$2" 3)список пользователей, входящих в эту группу:  "$3" "}')"
+                echo "$(cat /etc/group | grep -E ^$group | cut -d: -f1,2,3,4 | tr ":" " " |  awk '{print "1)имя: "$1" 2)gid: "$3" 3)список пользователей, входящих в эту группу:  "$4" "}')"
 		
 		
 	fi	
